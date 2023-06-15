@@ -4,18 +4,43 @@
 class animal
 {
 public:
-	bool cellular_complexity;
+	int cellular_complexity;
 	int metabolism_rate;
-
 	animal();
-	animal(bool complexity, int metabolism);
+	animal(int complexity, int metabolism);
 	bool check_alive();
-	void change_metabolism(double n);
+	void set_metabolizm(int n);
+	void change_metabolism(int n);
 	void die();
 	void evolve();
 };
 
-class virus: public animal
+class vertebrates : public animal
+{
+public:
+	int nerv_system;
+	int immunity;
+	bool oxygen_dependant;
+	bool land_based;
+	vertebrates();
+	vertebrates(int nerves, int immune_stat, bool place);
+	void breath(int atmosphere);
+	void flee();
+	void rest(int time);
+};
+class mammal : public vertebrates
+{
+public:
+	mammal();
+	mammal(bool h, bool c);
+	bool herbivore;
+	bool carnivor;
+	int brain;
+	void mate();
+	void adapt();
+};
+
+class virus : public animal
 {
 public:
 	int amount;
@@ -23,21 +48,8 @@ public:
 	virus();
 	virus(int str);
 	void find(animal prey);
-
-};
-class vertebrates : public animal
-{
-	int nerv_system;
-	bool land_based;
-	int immunity;
-	bool oxygen_dependant;
-	void breath(int atmosphere);
-	void flee();
-	void rest(int time);
-};
-class mammal : public vertebrates
-{
-	
+	void find(vertebrates prey);
+	void find(mammal prey);
 };
 
 #endif
