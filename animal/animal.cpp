@@ -2,15 +2,30 @@
 #include <string>
 #include "animal.h"
 
+char animal::dn_acyds[4]{ 'a', 't', 'g', 'c'};
 animal::animal() 
 {
+	dna = new char[50];
+	for (int i = 0; i < 50; i++) dna[i] = dn_acyds[rand()%4];
 	cellular_complexity = 1;
 	metabolism_rate = 2;
 }
 animal::animal(int complexity, int metabolism) 
 {
-		cellular_complexity = complexity;
-		metabolism_rate = metabolism;
+	dna = new char[50];
+	for (int i = 0; i < 50; i++) dna[i] = dn_acyds[rand() % 4];
+	cellular_complexity = complexity;
+	metabolism_rate = metabolism;
+}
+animal::animal(const animal& an1)
+{
+	if (this != &an1)
+	{
+		dna = new char[50];
+		for (int i = 0; i < 50; i++) dna[i] = an1.dna[i];
+		cellular_complexity = an1.cellular_complexity;
+		metabolism_rate = an1.metabolism_rate;
+	}
 }
 bool animal::check_alive()
 {
@@ -45,6 +60,15 @@ void animal::evolve()
 		metabolism_rate += 1;
 	}
 	else std::cout << "must change type to evolve" << std::endl;
+}
+void animal::sound()
+{
+	std::cout << "the animal reacts" << std::endl;
+}
+animal::~animal()
+{
+	delete(dna);
+	dna = nullptr;
 }
 
 //vertebrates section
@@ -86,6 +110,10 @@ void vertebrates::rest(int time)
 	if (time <= 0)std::cout << "negative number given for time" << std::endl;
 	else immunity += time;
 }
+void vertebrates::sound()
+{
+	std::cout << "brrrs" << std::endl;
+}
 
 
 //mammals section
@@ -116,6 +144,81 @@ void mammal::adapt()
 	immunity += 10;
 	set_metabolizm(50);
 }
+void mammal::sound()
+{
+	if (carnivor == true) std::cout << "Roars" << std::endl;
+	else  std::cout << "groans" << std::endl;
+}
+
+
+//dog section
+
+
+dog::dog()
+{
+	carnivor = 1;
+	herbivore = 1;
+}
+void dog::sound()
+{
+	std::cout << "barks" << std::endl;
+}
+
+
+//cat section
+
+
+cat::cat()
+{
+	carnivor = 1;
+	herbivore = 0;
+}
+void cat::sound()
+{
+	std::cout << "Meow" << std::endl;
+}
+
+
+//cow section
+
+cow::cow()
+{
+	herbivore = 1;
+	carnivor = 0;
+}
+void cow::sound()
+{
+	std::cout << "moos" << std::endl;
+}
+
+
+
+//fish section
+
+
+bool fish::swims=1;
+fish::fish()
+{
+
+}
+void fish::sound()
+{
+	std::cout << "the sound is too scilent to be heard" << std::endl;
+}
+
+
+
+dolphin::dolphin()
+{
+	mammal::land_based = false;	
+	fish::land_based = false;
+
+}
+void dolphin::sound()
+{
+	std::cout << "ikikikik" << std::endl;
+}
+
 
 //virus section
 
@@ -147,4 +250,8 @@ void virus::find(mammal prey)
 	std::cout << "mammal adapts" << std::endl;
 	prey.adapt();
 	amount /= prey.immunity;
+}
+void virus::sound()
+{
+	std::cout << "the virus can't make a sound" << std::endl;
 }
