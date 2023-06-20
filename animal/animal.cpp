@@ -65,11 +65,17 @@ void animal::sound()
 {
 	std::cout << "the animal reacts" << std::endl;
 }
+animal* animal::reproduce()
+{
+	return (new animal());
+}
 animal::~animal()
 {
 	delete(dna);
 	dna = nullptr;
+	//std::cout << "animal destructor" << std::endl;
 }
+
 
 //vertebrates section
 
@@ -114,6 +120,14 @@ void vertebrates::sound()
 {
 	std::cout << "brrrs" << std::endl;
 }
+animal* vertebrates::reproduce()
+{
+	return (new vertebrates());
+}
+vertebrates::~vertebrates()
+{
+	//std::cout << "vertebrates destructor" << std::endl;
+}
 
 
 //mammals section
@@ -134,11 +148,6 @@ mammal::mammal(bool h, bool c)
 	nerv_system = nerv_system * herbivore + nerv_system * carnivor;
 	brain = nerv_system * cellular_complexity;
 }
-void mammal::mate()
-{
-	cellular_complexity+=1;
-	immunity+=1;
-}
 void mammal::adapt()
 {
 	immunity += 10;
@@ -148,6 +157,14 @@ void mammal::sound()
 {
 	if (carnivor == true) std::cout << "Roars" << std::endl;
 	else  std::cout << "groans" << std::endl;
+}
+animal* mammal::reproduce()
+{
+	return (new mammal());
+}
+mammal::~mammal()
+{
+	//std::cout << "mammal destructor" << std::endl;
 }
 
 
@@ -163,6 +180,14 @@ void dog::sound()
 {
 	std::cout << "barks" << std::endl;
 }
+animal* dog::reproduce()
+{
+	return (new dog());
+}
+dog::~dog()
+{
+	//std::cout << "dog destructor" << std::endl;
+}
 
 
 //cat section
@@ -177,6 +202,14 @@ void cat::sound()
 {
 	std::cout << "Meow" << std::endl;
 }
+animal* cat::reproduce()
+{
+	return (new cat());
+}
+cat::~cat()
+{
+	//std::cout << "cat destructor" << std::endl;
+}
 
 
 //cow section
@@ -189,6 +222,14 @@ cow::cow()
 void cow::sound()
 {
 	std::cout << "moos" << std::endl;
+}
+animal* cow::reproduce()
+{
+	return (new cow());
+}
+cow::~cow()
+{
+	//std::cout << "cow destructor" << std::endl;
 }
 
 
@@ -205,8 +246,17 @@ void fish::sound()
 {
 	std::cout << "the sound is too scilent to be heard" << std::endl;
 }
+animal* fish::reproduce()
+{
+	return (new cat());
+}
+fish::~fish()
+{
+	//std::cout << "fish destructor" << std::endl;
+}
 
 
+//dolphin section
 
 dolphin::dolphin()
 {
@@ -254,4 +304,14 @@ void virus::find(mammal prey)
 void virus::sound()
 {
 	std::cout << "the virus can't make a sound" << std::endl;
+}
+animal* virus::reproduce()
+{
+	animal* ans = new virus();
+	for (int i = 0; i < 50; i++) dna[i] = dn_acyds[rand() % 4];
+	return ans ;
+}
+virus::~virus()
+{
+	//std::cout << "virus destructor" << std::endl;
 }

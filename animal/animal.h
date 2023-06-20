@@ -21,7 +21,8 @@ public:
 	void die();
 	void evolve();
 	virtual void sound();
-	~animal();
+	virtual animal* reproduce();
+	virtual ~animal();
 };
 
 
@@ -39,7 +40,9 @@ public:
 	void breath(int atmosphere);
 	void flee();
 	void rest(int time);
-	virtual void sound();
+	void sound() override;
+	animal* reproduce() override;
+	~vertebrates() override;
 };
 
 
@@ -52,9 +55,10 @@ public:
 	bool herbivore;
 	bool carnivor;
 	int brain;
-	void mate();
 	void adapt();
-	virtual void sound();
+	void sound() override;
+	animal* reproduce() override;
+	~mammal() override;
 };
 
 
@@ -63,7 +67,9 @@ class dog : public mammal
 {
 public:
 	dog();
-	virtual void sound();
+	void sound() override;
+	animal* reproduce() final;
+	~dog() override;
 };
 
 
@@ -71,14 +77,18 @@ class cat : public mammal
 {
 public:
 	cat();
-	virtual void sound();
+	void sound() final;
+	animal* reproduce() final;
+	~cat() override;
 };
 
 class cow : public mammal
 {
 public:
 	cow();
-	virtual void sound();
+	void sound() final;
+	animal* reproduce() final;
+	~cow() override;
 };
 
 
@@ -88,7 +98,9 @@ class fish : public vertebrates
 public:
 	bool static swims;
 	fish();
-	virtual void sound();
+	void sound() override;
+	animal* reproduce() override;
+	~fish() override;
 };
 
 
@@ -110,7 +122,9 @@ public:
 	void find(animal prey);
 	void find(vertebrates prey);
 	void find(mammal prey);
-	virtual void sound();
+	void sound() final;
+	animal* reproduce() override;
+	~virus() final;
 };
 
 #endif
